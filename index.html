@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Rexo Gift Portal</title>
+  <style>
+    body {
+      margin:0;
+      font-family: 'Segoe UI', sans-serif;
+      background:#fc8019;
+      color:white;
+    }
+
+    .page {
+      display:flex;
+      flex-direction:column;
+      justify-content:center;
+      align-items:center;
+      height:100vh;
+      text-align:center;
+      padding:20px;
+    }
+
+    input {
+      padding:12px;
+      margin:10px;
+      width:250px;
+      border-radius:8px;
+      border:none;
+    }
+
+    button {
+      padding:12px 20px;
+      margin:10px;
+      border:none;
+      border-radius:8px;
+      cursor:pointer;
+      font-weight:bold;
+      background:white;
+      color:#fc8019;
+    }
+
+    .hidden { display:none; }
+
+    img {
+      margin-top:20px;
+      max-width:80%;
+      border-radius:10px;
+    }
+  </style>
+</head>
+<body>
+
+<!-- HOME -->
+<div class="page" id="home">
+  <h1>Rexo 🎁</h1>
+  <p>Noida Delhi Sector 69</p>
+  <p>☎ +91 98765 43210</p>
+  <h2>Here is your Gift 🎉</h2>
+  <button onclick="goForm()">Claim Now</button>
+</div>
+
+<!-- FORM -->
+<div class="page hidden" id="form">
+  <h2>Registration 📝</h2>
+  <input id="name" placeholder="Enter Name">
+  <input placeholder="Enter Age">
+  <button onclick="showOptions()">Continue</button>
+</div>
+
+<!-- OPTIONS -->
+<div class="page hidden" id="options">
+  <h2>Select Your Gift 🎁</h2>
+  <button onclick="pay('car')">🚗 Car</button>
+  <button onclick="pay('tab')">📱 Tablet</button>
+  <button onclick="pay('yaman')">💀 Yaman Special</button>
+</div>
+
+<!-- PAYMENT -->
+<div class="page hidden" id="payment">
+  <h2>Payment 💳</h2>
+  <p id="amount"></p>
+  <button onclick="process()">Pay Now</button>
+</div>
+
+<!-- LOADING -->
+<div class="page hidden" id="loading">
+  <h2>Processing ⏳</h2>
+</div>
+
+<!-- RESULT -->
+<div class="page hidden" id="result">
+  <h2 id="final"></h2>
+  <p id="msg"></p>
+
+  <!-- BACK BUTTON -->
+  <button id="backBtn" onclick="goHome()" class="hidden">
+    🔁 Try Other Gift
+  </button>
+
+  <!-- MEME -->
+  <img src="https://media.tenor.com/mSVpXDtBoXMAAAAj/kitty-dancing.gif">
+</div>
+
+<script>
+let user="", choice="";
+
+function goForm(){
+  home.classList.add("hidden");
+  form.classList.remove("hidden");
+}
+
+function showOptions(){
+  user = document.getElementById("name").value;
+  form.classList.add("hidden");
+  options.classList.remove("hidden");
+}
+
+function pay(type){
+  choice = type;
+  options.classList.add("hidden");
+  payment.classList.remove("hidden");
+
+  if(type=="car") amount.innerText="Amount: ₹100000";
+  else if(type=="tab") amount.innerText="Amount: ₹10000";
+  else amount.innerText="Amount: ₹6000";
+}
+
+function process(){
+  payment.classList.add("hidden");
+  loading.classList.remove("hidden");
+
+  setTimeout(()=>{
+    loading.classList.add("hidden");
+    result.classList.remove("hidden");
+
+    if(choice=="car"){
+      final.innerText="💀 Oops!";
+      msg.innerText=user + " 😭 car le raha tha? Miss ho gaya 😂 refund le aur try again 🤡";
+      backBtn.classList.remove("hidden");
+    }
+    else if(choice=="tab"){
+      final.innerText="💀 Oops!";
+      msg.innerText="Abe " + user + " 😂 tablet bhi gaya! Refund mil gaya 🤡 try again";
+      backBtn.classList.remove("hidden");
+    }
+    else{
+      final.innerText="✅ Registration Successful";
+      msg.innerText=user + " 😂 tu serious tha kya?\n\n11 PM slot booked at Yaman OYO 😈🔥\nLate hua to koi aur le jayega 🤡";
+      backBtn.classList.add("hidden");
+    }
+
+  },2000);
+}
+
+function goHome(){
+  result.classList.add("hidden");
+  home.classList.remove("hidden");
+}
+</script>
+
+</body>
+  </html>
